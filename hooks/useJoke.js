@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { JOKES_PROMPTS, ROAST_ME } from "../constants/categories";
-import { model } from "../utils/geminiClient";
-
+import { generateAIResponse } from "../utils/openrouterClient";
 const useJoke = () => {
   const [joke, setJoke] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,9 +25,7 @@ const useJoke = () => {
         prompt = JOKES_PROMPTS[category];
       }
 
-      const result = await model.generateContent(prompt);
-
-      const generatedJoke = result.response.text();
+      const generatedJoke = await generateAIResponse(prompt);
 
       if (generatedJoke) {
         setJoke(generatedJoke);
