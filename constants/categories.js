@@ -3,117 +3,62 @@ const CATEGORIES = [
     id: "tech",
     label: "Tech",
     icon: "code-slash",
-    color: "#3B82F6",
-  },
-  {
-    id: "dark",
-    label: "Dark",
-    icon: "moon",
-    color: "#1F2937",
+    color: "#6366f1",
   },
   {
     id: "dad",
     label: "Dad Jokes",
     icon: "happy",
-    color: "#F59E0B",
+    color: "#f59e0b",
   },
   {
-    id: "pun",
-    label: "Puns",
-    icon: "bulb",
-    color: "#10B981",
+    id: "desi",
+    label: "Desi",
+    icon: "flag",
+    color: "#10b981",
   },
   {
-    id: "animal",
-    label: "Animal",
-    icon: "paw",
-    color: "#8B5CF6",
+    id: "dark",
+    label: "Dark Humor",
+    icon: "skull",
+    color: "#ef4444",
   },
   {
-    id: "food",
-    label: "Food",
-    icon: "fast-food",
-    color: "#EF4444",
-  },
-  {
-    id: "school",
-    label: "School",
-    icon: "school",
-    color: "#06B6D4",
-  },
-  {
-    id: "office",
-    label: "Office",
-    icon: "briefcase",
-    color: "#F97316",
-  },
-  {
-    id: "relationship",
-    label: "Relationship",
-    icon: "heart",
-    color: "#EC4899",
-  },
-  {
-    id: "sports",
-    label: "Sports",
-    icon: "football",
-    color: "#22C55E",
-  },
-  {
-    id: "movies",
-    label: "Movies",
-    icon: "film",
-    color: "#6366F1",
-  },
-  {
-    id: "random",
-    label: "Random",
-    icon: "shuffle",
-    color: "#A855F7",
+    id: "roast",
+    label: "Roast Me",
+    icon: "flame",
+    color: "#f97316",
+    hasNameInput: true,
   },
 ];
 
 const JOKES_PROMPTS = {
-  tech:
-    "Generate a funny programming or tech joke. Keep it short, witty, and easy to understand.",
+  tech: `Generate one short and genuinely funny programmer or developer joke.
+Return ONLY two lines. Line 1 is the setup. Line 2 is the punchline.
+No labels, no explanation, no quotation marks, no numbering.
+Setup must be under 20 words. Punchline under 15 words.`,
 
-  dark:
-    "Generate a dark humor joke that is funny but not offensive, hateful, or harmful.",
+  dad: `Generate one classic groan-worthy dad joke.
+Return ONLY two lines. Line 1 is the setup. Line 2 is the punchline.
+No labels, no explanation, no quotation marks, no numbering.
+Setup must be under 20 words. Punchline under 15 words.`,
 
-  dad:
-    "Generate a classic dad joke with a cheesy punchline.",
+  desi: `Generate one light-hearted Indian humor joke in English.
+It must be friendly, not offensive or stereotyping.
+Return ONLY two lines. Line 1 is the setup. Line 2 is the punchline.
+No labels, no explanation, no quotation marks, no numbering.
+Setup must be under 20 words. Punchline under 15 words.`,
 
-  pun:
-    "Generate a clever pun-based joke using wordplay.",
-
-  animal:
-    "Generate a funny animal-related joke suitable for all ages.",
-
-  food:
-    "Generate a hilarious food joke with a playful punchline.",
-
-  school:
-    "Generate a funny school or student-life joke.",
-
-  office:
-    "Generate a relatable office or workplace joke.",
-
-  relationship:
-    "Generate a lighthearted relationship or dating joke.",
-
-  sports:
-    "Generate a funny sports-related joke.",
-
-  movies:
-    "Generate a movie or celebrity-inspired joke without being offensive.",
-
-  random:
-    "Generate a completely random and unexpected funny joke.",
+  dark: `Generate one clever dark humor joke. Witty and smart, not offensive or hateful.
+Return ONLY two lines. Line 1 is the setup. Line 2 is the punchline.
+No labels, no explanation, no quotation marks, no numbering.
+Setup must be under 20 words. Punchline under 15 words.`,
 };
-const ROAST_ME = (
-    name,
-)=> `Roast a persen named "${name}" is one short, savage but friendly sentence.
-Return ONLY the roast. No labels, no explanations, no quotation marks.
-Keep it under 20 words`
 
-export { CATEGORIES,JOKES_PROMPTS,ROAST_ME};
+const ROAST_ME = (
+  name,
+) => `Roast a person named "${name}" in one short, savage but friendly sentence.
+Return ONLY the roast. No labels, no explanation, no quotation marks.
+Keep it under 20 words.`;
+
+export { CATEGORIES, JOKES_PROMPTS, ROAST_ME };

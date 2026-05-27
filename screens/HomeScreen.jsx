@@ -1,72 +1,80 @@
-import { useEffect } from "react";
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  TouchableOpacity,
-} from "react-native";
-
-import useJoke from "../hooks/useJoke.js";
+import { useState } from "react";
+import { View, Text, TouchableOpacity, FlatList, StyleSheet } from "react-native";
+import useJoke from "../hooks/useJoke";
+import style from "./HomeScreen.style";
+import CategoriesPicker from "../components/CategoriesPicker";
+import { CATEGORIES } from "../constants/categories";
+import JokesView from "../components/JokesView";
+import RoastMeModal from "../components/RoastMeModal";
 
 const HomeScreen = () => {
-  const { joke, loading, error, generateNewJoke } = useJoke();
+    const useJokes = useJoke();
+    const { joke, loading, error, generateNewJoke } = useJokes;
 
-  const fetchJoke = () => {
-    generateNewJoke("Sandeep", "roast");
-  };
+    const [selectedCategory, setSelectedCategory] = useState("tech");
+    const [showModal, setShowModal] = useState(false);
+    const [nameToRoast, setNameToRoast] = useState("");
 
-  useEffect(() => {
-    fetchJoke();
-  }, []);
 
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 20,
-      }}
-    >
-      {loading && <ActivityIndicator size="large" />}
+    const handleGenrateJoke = () => {
+        if(selectedCategory === "roast" && (!nameToRoast || nameToRoast.trim() === "")){
+            setShowModal(true);
+            return;
+        }
+        if(selectedCategory === "roast" && nameToRoast){
+            generateNewJoke("roast", nameToRoast);
+            return;
+        }else{
+            generateNewJoke(selectedCategory);
+        }
+    }
 
-      {error && (
-        <Text style={{ color: "red", marginBottom: 10 }}>
-          {error}
-        </Text>
-      )}
+    const handleRoastMe = () => {
+        setShowModal(false);
+        generateNewJoke("roast", nameToRoast);
+    }
 
-      <Text
-        style={{
-          fontSize: 22,
-          textAlign: "center",
-          marginBottom: 30,
-        }}
-      >
-        {joke}
-      </Text>
+    
 
-      <TouchableOpacity
-        onPress={fetchJoke}
-        style={{
-          backgroundColor: "#111",
-          paddingHorizontal: 20,
-          paddingVertical: 12,
-          borderRadius: 10,
-        }}
-      >
-        <Text
-          style={{
-            color: "white",
-            fontSize: 16,
-            fontWeight: "bold",
-          }}
-        >
-          Generate New Joke
-        </Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+
+    return (
+        <View style={style.container}>
+            <Text style={style.title}>AI Joke Generator</Text>
+            <CategoriesPicker data={CATEGORIES} selectedCategory={selectedCategory} onCategorySelect={handleCategorySelect} />
+            <JokesView joke={joke} loading={loading} error={error} />
+            <TouchableOpacity style={styles.button} onPress={handleGenrateJoke}>
+                <Text style={styles.buttonText}>{
+                    loading ? "Generating..." : "Genrate Joke"}</Text>
+            </TouchableOpacity>
+            <RoastMeModal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                getName={nameToRoast}
+                setName={setNameToRoast}
+                handleRoast={handleRoastMe}
+            />
+
+
+        </View>
+    )
+}
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+    button: {
+        backgroundColor: "#0ea5e9",
+        paddingVertical: 16,
+        borderRadius: 14,
+        alignItems: "center",
+        shadowColor: "#38bdf8",
+        shadowOffset: 0.6,
+        shadowRadius: 12,
+        elevation: 12
+    },
+    buttonText: {
+        color: "#020617",
+        fontWeight: "700",
+        fontSize: 16,
+    }
+})
