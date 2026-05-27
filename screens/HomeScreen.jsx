@@ -34,7 +34,15 @@ const HomeScreen = () => {
         generateNewJoke("roast", nameToRoast);
     }
 
-    
+    const handleCategorySelect = (categoryId) => {
+        if (categoryId === "roast") {
+            setShowModal(true);
+            setSelectedCategory(categoryId);
+        } else {
+            setSelectedCategory(categoryId);
+        }
+    }
+
 
 
     return (
